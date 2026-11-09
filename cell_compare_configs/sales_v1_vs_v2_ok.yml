@@ -1,0 +1,9 @@
+name: Sales workbook v1 vs v2 (cosmetic differences only)
+source: {path: data/sales_v1.xlsx}
+target: {path: data/sales_v2_ok.xlsx}
+sheets: all                    # or [Summary, Targets] or [{source: Summary, target: Summary2}]
+options:
+  trim_strings: true
+  ignore_case: true
+  numeric_tolerance: 0.001
+  compare_formulas: false      # true compares formula text instead of cached values

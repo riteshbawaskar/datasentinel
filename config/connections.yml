@@ -1,0 +1,58 @@
+# Named connections. Three ways to supply a secret (password / token / passphrase):
+#   1) ${ENV_VAR} or ${ENV_VAR:default}        value comes from the environment
+#   2) ENC(gAAAA...)                           encrypted with the DataSentinel master key
+#        python -m datasentinel.security keygen              # once: create config/.datasentinel.key
+#        python -m datasentinel.security encrypt-config config/connections.yml
+#      ENC() values are decrypted in memory only when the connection is opened.
+#   3) plain text                              fine for local demos only - never commit real secrets
+# Details: docs/06-security-and-encryption.md
+# Reference them from any compare / validation YAML with:  connection: <name>
+connections:
+
+  demo_db:                       # local SQLite used by the sample scenarios
+    type: sqlite
+    path: data/demo.db
+
+  snowflake_dev:
+    type: snowflake
+    account: ${SNOWFLAKE_ACCOUNT}
+    user: ${SNOWFLAKE_USER}
+    password: ${SNOWFLAKE_PASSWORD}      # or:  password: ENC(gAAAA...)
+    warehouse: ${SNOWFLAKE_WAREHOUSE:COMPUTE_WH}
+    database: ${SNOWFLAKE_DATABASE:DEV_DB}
+    schema: ${SNOWFLAKE_SCHEMA:PUBLIC}
+    role: ${SNOWFLAKE_ROLE:}
+    # authenticator: externalbrowser            # SSO
+    # private_key_path: ~/.ssh/snowflake_key.p8 # key-pair auth
+    # private_key_passphrase: ${SNOWFLAKE_KEY_PASS}
+    # use_arrow: true                            # faster for big results (needs pyarrow)
+
+  snowflake_qa:
+    type: snowflake
+    account: ${SNOWFLAKE_ACCOUNT}
+    user: ${SNOWFLAKE_USER}
+    password: ${SNOWFLAKE_PASSWORD}
+    warehouse: ${SNOWFLAKE_WAREHOUSE:COMPUTE_WH}
+    database: ${SNOWFLAKE_QA_DATABASE:QA_DB}
+    schema: ${SNOWFLAKE_SCHEMA:PUBLIC}
+
+  oracle_prod:
+    type: oracle
+    user: ${ORACLE_USER}
+    password: ${ORACLE_PASSWORD}
+    host: ${ORACLE_HOST}
+    port: ${ORACLE_PORT:1521}
+    service_name: ${ORACLE_SERVICE}
+    # dsn: host:1521/service                    # alternative to host/port/service_name
+    # thick_mode: true
+
+  databricks_dev:
+    type: databricks
+    server_hostname: ${DATABRICKS_HOST}
+    http_path: ${DATABRICKS_HTTP_PATH}
+    access_token: ${DATABRICKS_TOKEN}
+    catalog: ${DATABRICKS_CATALOG:main}
+    schema: ${DATABRICKS_SCHEMA:default}
+
+# Excel needs no entry here - define it inline in the compare config:
+#   target: {type: excel, path: data/file.xlsx, query: 'SELECT * FROM "Sheet1"'}

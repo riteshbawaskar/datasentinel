@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "datasentinel"
+version = "1.1.0"
+description = "Data comparison, validation and UI verification, driven by BDD (behave + Playwright)"
+requires-python = ">=3.9"
+dependencies = [
+  "behave>=1.2.6",
+  "behave-html-formatter>=0.9.10",
+  "pandas>=2.0",
+  "openpyxl>=3.1",
+  "PyYAML>=6.0",
+  "cryptography>=41",
+]
+
+[project.optional-dependencies]
+snowflake = ["snowflake-connector-python>=3.0"]
+oracle = ["oracledb>=2.0"]
+databricks = ["databricks-sql-connector>=3.0"]
+ui = ["playwright>=1.40"]
+dev = ["pytest>=7.0"]
+
+[project.scripts]
+# `datasentinel-run` = parallel runner;  `datasentinel-secrets` = encryption CLI
+datasentinel-run = "datasentinel.runner:main"
+datasentinel-secrets = "datasentinel.security.__main__:main"
+
+[tool.setuptools.packages.find]
+include = ["datasentinel*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

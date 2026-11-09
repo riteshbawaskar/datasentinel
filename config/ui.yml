@@ -1,0 +1,11 @@
+# Playwright UI automation settings (all optional - these are the defaults).
+# Command-line overrides:  behave -D browser=firefox -D headless=false
+browser: chromium            # chromium | firefox | webkit
+headless: true               # false = watch the browser (useful while writing scenarios)
+base_url: ""                 # relative URLs in steps are appended to this, e.g. https://qa.example.com
+timeout_ms: 5000             # default wait for elements / navigation (raise for slow apps)
+viewport: {width: 1366, height: 768}
+slow_mo_ms: 0                # slow every action down by N ms (debugging)
+screenshot_on_failure: true  # full-page PNG embedded in the standalone HTML report
+trace_on_failure: false      # save a Playwright trace.zip for failed scenarios (open with: playwright show-trace)
+record_video: false          # keep a .webm video for failed scenarios

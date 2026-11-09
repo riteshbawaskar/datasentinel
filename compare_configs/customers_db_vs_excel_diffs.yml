@@ -1,0 +1,15 @@
+name: Customers - database vs Excel (known differences)
+source:
+  connection: demo_db
+  query: SELECT * FROM customers
+target:
+  type: excel
+  path: data/customers_with_diffs.xlsx
+  query: SELECT * FROM "Customers"
+primary_key: [CUSTOMER_ID]
+compare_fields: [NAME, EMAIL, COUNTRY, CREDIT_LIMIT, STATUS]   # explicit list
+options:
+  numeric_tolerance: 0.001
+  ignore_case: true
+  trim_strings: true
+  max_report_rows: 100

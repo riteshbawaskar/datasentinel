@@ -1,0 +1,7 @@
+name: Sales workbook v1 vs v2 (known differences)
+source: {path: data/sales_v1.xlsx}
+target: {path: data/sales_v2_diff.xlsx}
+sheets: all
+options:
+  range: A1:F20                # optional: restrict to an area
+  ignore_ranges: [F1:F20]      # optional: skip cells (e.g. the formula column)

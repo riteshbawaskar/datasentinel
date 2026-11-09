@@ -1,0 +1,10 @@
+name: SALES.ORDERS sanity checks (Snowflake)
+connection: snowflake_dev
+table: SALES.ORDERS
+checks:
+  - {type: row_count, min: 1}
+  - {type: not_null, columns: [ORDER_ID, CUSTOMER_ID, ORDER_DATE]}
+  - {type: unique, columns: [ORDER_ID]}
+  - {type: numeric, columns: [AMOUNT]}
+  - {type: date, column: ORDER_DATE}
+  - {type: range, column: AMOUNT, min: 0}

@@ -1,0 +1,23 @@
+name: ORDERS sanity checks (clean data)
+connection: demo_db                 # same endpoint format as compare configs
+query: SELECT * FROM orders         # or  table: SCHEMA.TABLE   or  query_file: path.sql
+checks:
+  - {type: row_count, min: 1, max: 100000}
+  - {type: columns_exist, columns: [ORDER_ID, CUSTOMER_ID, ORDER_DATE, AMOUNT]}
+  - {type: not_null, columns: [ORDER_ID, CUSTOMER_ID, ORDER_DATE, AMOUNT, EMAIL]}
+  - {type: unique, columns: [ORDER_ID]}
+  - {type: numeric, columns: [AMOUNT, QUANTITY]}
+  - {type: numeric, column: QUANTITY, integer: true, name: QUANTITY_is_integer}
+  - {type: date, column: ORDER_DATE, format: "%Y-%m-%d", min: "2020-01-01", max: "2030-12-31"}
+  - {type: range, column: AMOUNT, min: 0}
+  - {type: allowed_values, column: STATUS, values: [NEW, SHIPPED, CANCELLED]}
+  - {type: regex, column: EMAIL, pattern: '[^@\s]+@[^@\s]+\.[A-Za-z]{2,}'}
+  - {type: length, column: EMAIL, max: 100}
+  - {type: expression, expression: "QUANTITY > 0", name: positive_quantity}
+  - type: sql
+    name: no_orphan_orders
+    query: |
+      SELECT COUNT(*) FROM orders o
+      LEFT JOIN customers c ON c.CUSTOMER_ID = o.CUSTOMER_ID
+      WHERE c.CUSTOMER_ID IS NULL
+    expect: 0

@@ -1,0 +1,12 @@
+name: Product prices - Databricks vs Excel sign-off sheet
+source:
+  connection: databricks_dev
+  query: SELECT product_id, product_name, price FROM catalog.sales.products
+target:
+  type: excel
+  path: data/product_signoff.xlsx
+  query: SELECT * FROM "Products"
+primary_key: [PRODUCT_ID]
+compare_fields: all
+options:
+  numeric_tolerance: 0.005

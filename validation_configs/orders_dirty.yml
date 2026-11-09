@@ -1,0 +1,13 @@
+name: ORDERS sanity checks (dirty data - intentional failures)
+connection: demo_db
+query: SELECT * FROM orders_dirty
+checks:
+  - {type: row_count, min: 1}
+  - {type: not_null, columns: [ORDER_ID, EMAIL]}
+  - {type: unique, columns: [ORDER_ID]}
+  - {type: numeric, columns: [AMOUNT]}
+  - {type: numeric, column: QUANTITY, integer: true, name: QUANTITY_is_integer}
+  - {type: date, column: ORDER_DATE, format: "%Y-%m-%d"}
+  - {type: range, column: AMOUNT, min: 0}
+  - {type: allowed_values, column: STATUS, values: [NEW, SHIPPED, CANCELLED]}
+  - {type: regex, column: EMAIL, pattern: '[^@\s]+@[^@\s]+\.[A-Za-z]{2,}', severity: warning}

@@ -1,0 +1,16 @@
+# --- core -----------------------------------------------------------------------------
+behave>=1.2.6
+behave-html-formatter>=0.9.10
+pandas>=2.0
+openpyxl>=3.1
+PyYAML>=6.0
+cryptography>=41            # password encryption (Fernet) + Snowflake key-pair auth
+
+# --- install only what you need --------------------------------------------------------
+snowflake-connector-python>=3.0
+oracledb>=2.0
+databricks-sql-connector>=3.0
+playwright>=1.40            # UI automation; afterwards run:  playwright install chromium
+
+# --- development ------------------------------------------------------------------------
+pytest>=7.0                 # framework self-tests in tests/

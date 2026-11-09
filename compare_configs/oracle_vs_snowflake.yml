@@ -1,0 +1,14 @@
+name: CUSTOMERS - Oracle vs Snowflake migration check
+source:
+  connection: oracle_prod
+  query: SELECT CUST_ID, FIRST_NAME, LAST_NAME, EMAIL, BALANCE FROM APP.CUSTOMERS
+target:
+  connection: snowflake_dev
+  query: SELECT CUSTOMER_ID, FIRST_NAME, LAST_NAME, EMAIL, BALANCE FROM CRM.CUSTOMERS
+primary_key: [CUST_ID]
+column_mapping:                  # target_column: source_column
+  CUSTOMER_ID: CUST_ID
+compare_fields: [FIRST_NAME, LAST_NAME, EMAIL, BALANCE]
+options:
+  ignore_case: false
+  null_equals_empty: true        # Oracle stores '' as NULL

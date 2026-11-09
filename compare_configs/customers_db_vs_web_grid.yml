@@ -1,0 +1,16 @@
+name: Customers - database vs customer grid shown in the UI
+source:
+  connection: demo_db
+  query: SELECT CUSTOMER_ID, NAME, EMAIL, COUNTRY, CREDIT_LIMIT, STATUS FROM customers
+target:
+  type: web_table                         # Playwright reads the on-screen <table>
+  url: data/demo_site/index.html          # local file; use https://... for a real application
+  selector: "#customers"
+  # actions:                              # optional pre-steps (login etc.); ENC(...) values are decrypted
+  #   - {fill: "#user", value: "qa_user"}
+  #   - {fill: "#pwd",  value: "ENC(gAAAA...)"}
+  #   - {click: "#login"}
+primary_key: [CUSTOMER_ID]
+compare_fields: all
+options:
+  numeric_tolerance: 0.001                # UI shows 2 decimals

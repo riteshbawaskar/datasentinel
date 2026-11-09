@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Customer Directory</title></head>
+<body>
+<h1 id="heading">Customer Directory</h1>
+<label>Filter by name <input id="name-filter" type="text"></label>
+<button id="search" type="button">Search</button>
+<p id="result-count">Showing 30 of 30 customers</p>
+<table id="customers"><thead><tr><th>CUSTOMER_ID</th><th>NAME</th><th>EMAIL</th><th>COUNTRY</th><th>CREDIT_LIMIT</th><th>STATUS</th></tr></thead>
+<tbody>
+<tr><td>1001</td><td>Customer 1</td><td>user1@example.com</td><td>UK</td><td>1396.71</td><td>ACTIVE</td></tr>
+<tr><td>1002</td><td>Customer 2</td><td>user2@example.com</td><td>US</td><td>2768.65</td><td>ACTIVE</td></tr>
+<tr><td>1003</td><td>Customer 3</td><td>user3@example.com</td><td>DE</td><td>5453.32</td><td>INACTIVE</td></tr>
+<tr><td>1004</td><td>Customer 4</td><td>user4@example.com</td><td>IN</td><td>2065.40</td><td>ACTIVE</td></tr>
+<tr><td>1005</td><td>Customer 5</td><td>user5@example.com</td><td>IN</td><td>4353.11</td><td>INACTIVE</td></tr>
+<tr><td>1006</td><td>Customer 6</td><td>user6@example.com</td><td>SG</td><td>5325.49</td><td>ACTIVE</td></tr>
+<tr><td>1007</td><td>Customer 7</td><td>user7@example.com</td><td>IN</td><td>5567.31</td><td>INACTIVE</td></tr>
+<tr><td>1008</td><td>Customer 8</td><td>user8@example.com</td><td>UK</td><td>5482.06</td><td>INACTIVE</td></tr>
+<tr><td>1009</td><td>Customer 9</td><td>user9@example.com</td><td>SG</td><td>6456.02</td><td>ACTIVE</td></tr>
+<tr><td>1010</td><td>Customer 10</td><td>user10@example.com</td><td>IN</td><td>1824.45</td><td>ACTIVE</td></tr>
+<tr><td>1011</td><td>Customer 11</td><td>user11@example.com</td><td>SG</td><td>5569.64</td><td>INACTIVE</td></tr>
+<tr><td>1012</td><td>Customer 12</td><td>user12@example.com</td><td>US</td><td>2502.97</td><td>INACTIVE</td></tr>
+<tr><td>1013</td><td>Customer 13</td><td>user13@example.com</td><td>IN</td><td>1779.44</td><td>INACTIVE</td></tr>
+<tr><td>1014</td><td>Customer 14</td><td>user14@example.com</td><td>IN</td><td>6696.89</td><td>INACTIVE</td></tr>
+<tr><td>1015</td><td>Customer 15</td><td>user15@example.com</td><td>DE</td><td>5514.95</td><td>INACTIVE</td></tr>
+<tr><td>1016</td><td>Customer 16</td><td>user16@example.com</td><td>DE</td><td>5952.08</td><td>ACTIVE</td></tr>
+<tr><td>1017</td><td>Customer 17</td><td>user17@example.com</td><td>IN</td><td>4971.32</td><td>ACTIVE</td></tr>
+<tr><td>1018</td><td>Customer 18</td><td>user18@example.com</td><td>US</td><td>5253.76</td><td>INACTIVE</td></tr>
+<tr><td>1019</td><td>Customer 19</td><td>user19@example.com</td><td>IN</td><td>7217.83</td><td>INACTIVE</td></tr>
+<tr><td>1020</td><td>Customer 20</td><td>user20@example.com</td><td>SG</td><td>4724.81</td><td>ACTIVE</td></tr>
+<tr><td>1021</td><td>Customer 21</td><td>user21@example.com</td><td>DE</td><td>8387.53</td><td>ACTIVE</td></tr>
+<tr><td>1022</td><td>Customer 22</td><td>user22@example.com</td><td>IN</td><td>3892.66</td><td>INACTIVE</td></tr>
+<tr><td>1023</td><td>Customer 23</td><td>user23@example.com</td><td>SG</td><td>2987.41</td><td>INACTIVE</td></tr>
+<tr><td>1024</td><td>Customer 24</td><td>user24@example.com</td><td>IN</td><td>2438.13</td><td>INACTIVE</td></tr>
+<tr><td>1025</td><td>Customer 25</td><td>user25@example.com</td><td>US</td><td>7238.64</td><td>INACTIVE</td></tr>
+<tr><td>1026</td><td>Customer 26</td><td>user26@example.com</td><td>SG</td><td>1654.84</td><td>INACTIVE</td></tr>
+<tr><td>1027</td><td>Customer 27</td><td>user27@example.com</td><td>IN</td><td>3401.99</td><td>ACTIVE</td></tr>
+<tr><td>1028</td><td>Customer 28</td><td>user28@example.com</td><td>SG</td><td>4960.93</td><td>INACTIVE</td></tr>
+<tr><td>1029</td><td>Customer 29</td><td>user29@example.com</td><td>SG</td><td>3747.81</td><td>INACTIVE</td></tr>
+<tr><td>1030</td><td>Customer 30</td><td>user30@example.com</td><td>DE</td><td>4590.67</td><td>ACTIVE</td></tr>
+</tbody></table>
+<script>
+// Filter rows whose NAME cell contains the typed text, and update the counter.
+document.getElementById('search').addEventListener('click', () => {
+  const q = document.getElementById('name-filter').value.toLowerCase();
+  const rows = document.querySelectorAll('#customers tbody tr');
+  let shown = 0;
+  rows.forEach(r => {
+    const match = r.children[1].textContent.toLowerCase().includes(q);
+    r.style.display = match ? '' : 'none';
+    if (match) shown++;
+  });
+  document.getElementById('result-count').textContent = `Showing ${shown} of ${rows.length} customers`;
+});
+</script></body></html>

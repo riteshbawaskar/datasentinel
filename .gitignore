@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+reports/*
+!reports/.gitkeep
+# encryption master key - NEVER commit
+config/.datasentinel.key
+*.key
+.env

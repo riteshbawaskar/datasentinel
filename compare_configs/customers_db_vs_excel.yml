@@ -1,0 +1,14 @@
+name: Customers - database vs Excel extract
+source:
+  connection: demo_db                 # any entry from config/connections.yml
+  query: |
+    SELECT CUSTOMER_ID, NAME, EMAIL, COUNTRY, CREDIT_LIMIT, STATUS
+    FROM customers
+target:
+  type: excel                         # inline definition - no entry in connections.yml needed
+  path: data/customers_expected.xlsx
+  query: SELECT * FROM "Customers"    # sheet = table; plain SQL over the sheet
+primary_key: [CUSTOMER_ID]            # one or many columns
+compare_fields: all                   # 'all' or a list of columns
+options:
+  numeric_tolerance: 0.001
